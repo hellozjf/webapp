@@ -2,21 +2,19 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
   xmlns:context="http://www.springframework.org/schema/context"
-  xmlns:util="http://www.springframework.org/schema/util"
   xsi:schemaLocation="http://www.springframework.org/schema/beans 
       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
       http://www.springframework.org/schema/context 
-      http://www.springframework.org/schema/context/spring-context-4.0.xsd
-      http://www.springframework.org/schema/util
-      http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+      http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+  <context:property-placeholder location="classpath:jdbc.properties" />
 
   <context:component-scan base-package="com.hellozjf.webapp" />
 
   <!-- MySQL数据库 -->
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-    destroy-method="close" p:driverClassName="com.mysql.jdbc.Driver"
-    p:url="jdbc:mysql://localhost:3306/webapp" p:username="root"
-    p:password="123456" />
+    destroy-method="close" p:driverClassName="${jdbc.driverClass}"
+    p:url="${jdbc.url}" p:username="${jdbc.user}" p:password="${jdbc.password}" />
 
   <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
     p:dataSource-ref="dataSource" />
@@ -27,9 +25,9 @@
 
   <!-- SQLServer数据库 -->
   <bean id="sqlserverDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-    destroy-method="close" p:driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-    p:jdbcUrl="jdbc:sqlserver://192.168.3.88:1433;DatabaseName=AIS20060107130036"
-    p:user="sa" p:password="NBst1006" />
+    destroy-method="close" p:driverClass="${jdbc.sqlserver.driverClass}"
+    p:jdbcUrl="${jdbc.sqlserver.url}" p:user="${jdbc.sqlserver.user}"
+    p:password="${jdbc.sqlserver.password}" />
 
   <bean id="sqlserverJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
     p:dataSource-ref="sqlserverDataSource" />
