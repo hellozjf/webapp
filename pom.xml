@@ -15,6 +15,9 @@
     <testng.version>6.11</testng.version>
     <commons-dbcp.version>1.4</commons-dbcp.version>
     <servlet.version>4.0.0</servlet.version>
+    <jstl.version>1.2</jstl.version>
+    <c3p0.version>0.9.5.2</c3p0.version>
+    <sqljdbc.version>4.0</sqljdbc.version>
   </properties>
 
   <dependencies>
@@ -59,7 +62,17 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
-      <version>1.2</version>
+      <version>${jstl.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.mchange</groupId>
+      <artifactId>c3p0</artifactId>
+      <version>${c3p0.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.microsoft.sqlserver</groupId>
+      <artifactId>sqljdbc4</artifactId>
+      <version>${sqljdbc.version}</version>
     </dependency>
 
   </dependencies>

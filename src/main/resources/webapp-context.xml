@@ -7,16 +7,32 @@
       http://www.springframework.org/schema/context 
       http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-  <context:component-scan base-package="com.hellozjf.webapp"/>
+  <context:component-scan base-package="com.hellozjf.webapp" />
 
+  <!-- MySQL数据库 -->
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
     destroy-method="close" p:driverClassName="com.mysql.jdbc.Driver"
     p:url="jdbc:mysql://localhost:3306/webapp" p:username="root"
-    p:password="123456"/>
+    p:password="123456" />
 
   <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
-    p:dataSource-ref="dataSource"/>
-  
-  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
-    p:dataSource-ref="dataSource"/>
+    p:dataSource-ref="dataSource" />
+
+  <bean id="transactionManager"
+    class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+    p:dataSource-ref="dataSource" />
+
+  <!-- SQLServer数据库 -->
+  <bean id="sqlserverDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+    destroy-method="close" p:driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+    p:jdbcUrl="jdbc:sqlserver://192.168.3.88:1433;DatabaseName=AIS20060107130036"
+    p:user="sa" p:password="NBst1006" />
+
+  <bean id="sqlserverJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+    p:dataSource-ref="sqlserverDataSource" />
+
+  <bean id="sqlserverTransactionManager"
+    class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+    p:dataSource-ref="sqlserverDataSource" />
+
 </beans>
