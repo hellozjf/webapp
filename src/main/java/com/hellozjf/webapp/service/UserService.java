@@ -1,5 +1,7 @@
 package com.hellozjf.webapp.service;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import com.hellozjf.webapp.dao.TUserMapper;
 import com.hellozjf.webapp.dao.UserDao;
 import com.hellozjf.webapp.domain.TLoginfo;
 import com.hellozjf.webapp.domain.TUser;
+import com.hellozjf.webapp.domain.TUserExample;
 import com.hellozjf.webapp.domain.User;
 
 @Service
@@ -64,5 +67,12 @@ public class UserService {
         tUser.setIsadmin(isAdmin);
         tUserMapper.insert(tUser);
         return tUser;
+    }
+    
+    public List<TUser> getTUsersBetween2And20() {
+        TUserExample tUserExample = new TUserExample();
+        tUserExample.or().andIdBetween(2, 20);
+        List<TUser> tUsers = tUserMapper.selectByExample(tUserExample);
+        return tUsers;
     }
 }
