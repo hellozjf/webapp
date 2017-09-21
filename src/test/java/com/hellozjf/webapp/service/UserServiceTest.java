@@ -50,4 +50,13 @@ public class UserServiceTest extends AbstractTransactionalTestNGSpringContextTes
         int isAdmin = 0;
         userService.addUser(username, password, isAdmin);
     }
+    
+    @Test
+    @Rollback(false)
+    public void testAddTUserWithoutId() {
+        String username = "hellozjf";
+        String password = "654321";
+        int isAdmin = 1;
+        userService.addTUser(username, password, isAdmin);
+    }
 }

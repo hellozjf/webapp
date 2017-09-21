@@ -7,7 +7,11 @@ import org.springframework.jdbc.support.incrementer.MySQLMaxValueIncrementer;
 import org.springframework.stereotype.Service;
 
 import com.hellozjf.webapp.dao.LogInfoDao;
+import com.hellozjf.webapp.dao.TLoginfoMapper;
+import com.hellozjf.webapp.dao.TUserMapper;
 import com.hellozjf.webapp.dao.UserDao;
+import com.hellozjf.webapp.domain.TLoginfo;
+import com.hellozjf.webapp.domain.TUser;
 import com.hellozjf.webapp.domain.User;
 
 @Service
@@ -20,6 +24,12 @@ public class UserService {
     
     @Autowired
     private LogInfoDao logInfoDao;
+    
+    @Autowired
+    private TUserMapper tUserMapper;
+    
+    @Autowired
+    private TLoginfoMapper tLogInfo;
     
     @Autowired
     private MySQLMaxValueIncrementer incre;
@@ -44,5 +54,15 @@ public class UserService {
         user.setIsAdmin(isAdmin);
         userDao.addUser(user);
         return user;
+    }
+    
+    public TUser addTUser(String username, String password, int isAdmin) {
+        TUser tUser = new TUser();
+        tUser.setId(incre.nextIntValue());
+        tUser.setUsername(username);
+        tUser.setPassword(password);
+        tUser.setIsadmin(isAdmin);
+        tUserMapper.insert(tUser);
+        return tUser;
     }
 }

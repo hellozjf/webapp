@@ -16,12 +16,32 @@
     destroy-method="close" p:driverClassName="${jdbc.driverClass}"
     p:url="${jdbc.url}" p:username="${jdbc.user}" p:password="${jdbc.password}" />
 
+  <!-- JdbcTemplate -->
   <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
     p:dataSource-ref="dataSource" />
+
+  <!-- SqlSessionTemplate -->
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+    p:dataSource-ref="dataSource" p:configLocation="classpath:myBatisConfig.xml"
+    p:mapperLocations="classpath:com/hellozjf/webapp/mapper/*.xml" />
+
+  <bean class="org.mybatis.spring.SqlSessionTemplate">
+    <constructor-arg ref="sqlSessionFactory" />
+  </bean>
+
+  <!-- 将Mapper和Dao绑定，生成Bean -->
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+    p:sqlSessionFactoryBeanName="sqlSessionFactory" p:basePackage="com.hellozjf.webapp.dao" />
 
   <bean id="transactionManager"
     class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
     p:dataSource-ref="dataSource" />
+
+  <!-- t_user表的ID生成器 -->
+  <bean id="incre"
+    class="org.springframework.jdbc.support.incrementer.MySQLMaxValueIncrementer"
+    p:incrementerName="t_user_id" p:columnName="sequence_id"
+    p:cacheSize="10" p:dataSource-ref="dataSource" />
 
   <!-- SQLServer数据库 -->
   <bean id="sqlserverDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
@@ -35,11 +55,5 @@
   <bean id="sqlserverTransactionManager"
     class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
     p:dataSource-ref="sqlserverDataSource" />
-    
-  <bean id="incre" class="org.springframework.jdbc.support.incrementer.MySQLMaxValueIncrementer"
-    p:incrementerName="t_user_id"
-    p:columnName="sequence_id"
-    p:cacheSize="10"
-    p:dataSource-ref="dataSource" />
 
 </beans>

@@ -25,23 +25,24 @@
       <property name="forceBigDecimals" value="false" />
     </javaTypeResolver>
 
-    <javaModelGenerator targetPackage="test.model"
+    <javaModelGenerator targetPackage="com.hellozjf.webapp.domain"
       targetProject="C:\zjf\code\eclipse_oxygen_test\webapp\src\main\java">
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
     </javaModelGenerator>
 
-    <sqlMapGenerator targetPackage="test.xml"
+    <sqlMapGenerator targetPackage="com.hellozjf.webapp.mapper"
       targetProject="C:\zjf\code\eclipse_oxygen_test\webapp\src\main\java">
       <property name="enableSubPackages" value="true" />
     </sqlMapGenerator>
 
     <javaClientGenerator type="XMLMAPPER"
-      targetPackage="test.dao" targetProject="C:\zjf\code\eclipse_oxygen_test\webapp\src\main\java">
+      targetPackage="com.hellozjf.webapp.dao" targetProject="C:\zjf\code\eclipse_oxygen_test\webapp\src\main\java">
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
 
-    <table tableName="blog"></table>
+    <table tableName="t_user"></table>
+    <table tableName="t_loginfo"></table>
 
   </context>
 </generatorConfiguration>
